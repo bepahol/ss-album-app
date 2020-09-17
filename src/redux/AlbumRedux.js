@@ -6,7 +6,7 @@ import * as Util from "utils/Util";
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  fetchAlbumsRequest: ["term"],
+  fetchAlbumsRequest: ["artist"],
   fetchAlbumsSuccess: ["albums"],
   fetchAlbumsFailure: ["error"],
 });
@@ -35,7 +35,7 @@ export const fetchAlbumsRequest = (state) => {
 export const fetchAlbumsSuccess = (state, payload) => {
   log("fetchAlbumsSuccess");
   const mergedAlbums = state.albums.merge({
-    data: payload.users,
+    data: payload.albums.results,
     fetching: false,
   });
   return state.merge({ albums: mergedAlbums });

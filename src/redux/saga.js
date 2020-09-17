@@ -6,9 +6,11 @@ import * as Util from "utils/Util";
 export const theApi = API.create();
 
 function* fetchAlbumsSaga(api, payload) {
-  const response = yield call(api.getAlbums, payload.term);
+  const response = yield call(api.getAlbums, payload.artist);
+
   if (response.ok) {
-    yield put(AlbumActions.fetchAlbumsSuccess(Transform.transformFromJsonApi(response.data)));
+    // yield put(AlbumActions.fetchAlbumsSuccess(Transform.transformFromJsonApi(response.data)));
+    yield put(AlbumActions.fetchAlbumsSuccess(response.data));
   } else {
     yield put(AlbumActions.fetchAlbumsFailure(Util.getErrorMessage(response)));
   }

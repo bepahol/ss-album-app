@@ -12,10 +12,23 @@ const create = (auth) => {
 
   const api = apisauce.create({
     baseURL, // base URL is read from the "constructor"
-    timeout: 10000, // 10s
+    headers: {
+      // "Access-Control-Allow-Origin": "*",
+      // "Access-Control-Allow-Headers": "Origin,Content-Type,Authorization,X-Auth-Token",
+      // "Access-Control-Allow-Methods": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS",
+      // "Access-Control-Expose-Headers": "Access-Token, Uid",
+      // mode: "no-cors",
+      // host: "itunes.apple.com",
+      //   // here are some default headers
+      //   "Cache-Control": "no-cache",
+      //   "Api-Key": apiKey,
+      //   Accept: "application/vnd.api+json",
+      //   "Content-Type": "application/vnd.api+json",
+    },
+    timeout: 3000, // 3s
   });
 
-  const getAlbums = (term) => api.get(`/search`, { term: term });
+  const getAlbums = (artist) => api.get(`/search`, { term: artist, media: "music", entity: "album" });
 
   return {
     defaults: api,
