@@ -5,7 +5,7 @@ const create = (auth) => {
   const defaultBaseUrl = "https://itunes.apple.com";
   const baseURL = process.env.BASE_URL || defaultBaseUrl;
   // console.log("env: ", process.env);
-  console.log("baseUrl: ", baseURL);
+  // console.log("baseUrl: ", baseURL);
 
   const defaultApiKey = "none";
   const apiKey = process.env.API_KEY || defaultApiKey;

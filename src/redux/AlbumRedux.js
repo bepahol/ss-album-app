@@ -57,7 +57,7 @@ export const hydrate = (state, payload) => {
 };
 
 export const defaultHandler = (state, payload) => {
-  console.log("payload: ", payload);
+  // console.log("payload: ", payload);
   return state;
 };
 
