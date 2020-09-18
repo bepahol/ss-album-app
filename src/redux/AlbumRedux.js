@@ -35,7 +35,7 @@ export const fetchAlbumsRequest = (state) => {
 export const fetchAlbumsSuccess = (state, payload) => {
   log("fetchAlbumsSuccess");
   const mergedAlbums = state.albums.merge({
-    data: payload.albums.results,
+    data: payload.albums,
     fetching: false,
   });
   return state.merge({ albums: mergedAlbums });

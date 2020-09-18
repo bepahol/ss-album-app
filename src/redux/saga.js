@@ -1,7 +1,8 @@
-import { call, all, put, takeLatest, select } from "redux-saga/effects";
+import { call, all, put, takeLatest } from "redux-saga/effects";
 import AlbumActions, { AlbumTypes } from "../redux/AlbumRedux";
 import API from "services/Api";
 import * as Util from "utils/Util";
+import * as Transform from "utils/transforms";
 
 export const theApi = API.create();
 
@@ -9,8 +10,8 @@ function* fetchAlbumsSaga(api, payload) {
   const response = yield call(api.getAlbums, payload.artist);
 
   if (response.ok) {
-    // yield put(AlbumActions.fetchAlbumsSuccess(Transform.transformFromJsonApi(response.data)));
-    yield put(AlbumActions.fetchAlbumsSuccess(response.data));
+    yield put(AlbumActions.fetchAlbumsSuccess(Transform.removeDuplicateAlbums(response.data.results)));
+    // yield put(AlbumActions.fetchAlbumsSuccess(response.data));
   } else {
     yield put(AlbumActions.fetchAlbumsFailure(Util.getErrorMessage(response)));
   }
