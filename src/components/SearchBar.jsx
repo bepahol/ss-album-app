@@ -22,9 +22,15 @@ class SearchBar extends React.Component {
     // if (error) {
     //   alert(error);
     // } else {
-    //   // console.log("setting.. " + event.target.name + " -> " + event.target.value);
+    // console.log("setting.. " + event.target.name + " -> " + event.target.value);
+
     this.setState({ [name]: value });
-    // }
+  }
+
+  handleKeyDown(event) {
+    if (event.key === "Enter") {
+      window.location.href = `/album/${this.state.artist}`;
+    }
   }
 
   render() {
@@ -40,31 +46,32 @@ class SearchBar extends React.Component {
                 <div className="container-fluid">
                   <div className="login-wrapper row">
                     <div id="login" className="login loginpage offset-xl-4 offset-lg-3 offset-md-3 offset-0 col-12 col-md-6 col-xl-4">
-                      <form name="loginform" id="loginform" onSubmit={(event) => this.handleSearch(event)}>
-                        {/* using div here so elements are all on one line */}
-                        <label htmlFor="user_login">
-                          Search for your fav artist: &nbsp;
-                          <input
-                            type="text"
-                            name="artist"
-                            id="user_login"
-                            className="input"
-                            value={this.state.artist}
-                            size="20"
-                            onChange={(event) => this.handleChange(event)}
-                            disabled={fetching ? true : false}
-                          />
-                        </label>
-                        &nbsp;
-                        <Link href={`/album/${this.state.artist}`}>
-                          <a>
-                            <Button color="secondary" disabled={!this.state.artist}>
-                              {fetching ? "Searching..." : "Search"}
-                            </Button>
-                          </a>
-                        </Link>
-                        {/* <input type="submit" name="wp-submit" id="wp-submit" className="" value={fetching ? "Searching..." : "Search"} /> */}
-                      </form>
+                      {/* <form name="loginform" id="loginform" onSubmit={(event) => this.handleSearch(event)}> */}
+                      {/* using div here so elements are all on one line */}
+                      <label htmlFor="user_login">
+                        Search for your fav artist: &nbsp;
+                        <input
+                          type="text"
+                          name="artist"
+                          id="user_login"
+                          className="input"
+                          value={this.state.artist}
+                          size="20"
+                          onChange={(event) => this.handleChange(event)}
+                          onKeyDown={(event) => this.handleKeyDown(event)}
+                          disabled={fetching ? true : false}
+                        />
+                      </label>
+                      &nbsp;
+                      {/* <Link href={`/album/${this.state.artist}`}> */}
+                      <a href={`/album/${this.state.artist}`}>
+                        <Button color="secondary" disabled={!this.state.artist}>
+                          {fetching ? "Searching..." : "Search"}
+                        </Button>
+                      </a>
+                      {/* </Link> */}
+                      {/* <input type="submit" name="wp-submit" id="wp-submit" className="" value={fetching ? "Searching..." : "Search"} /> */}
+                      {/* </form> */}
                     </div>
                   </div>
                 </div>
