@@ -28,15 +28,13 @@ class SearchBar extends React.Component {
     this.setState({ [name]: value });
   }
 
-  handleKeyDown(event) {
-    if (event.key === "Enter") {
-      window.location.href = `/album/${this.state.artist}`;
-    }
+  handleSearch(event) {
+    event.preventDefault();
+    window.location.href = `/album/${this.state.artist}`;
   }
 
   render() {
-    const { albums } = this.props;
-    const { fetching } = albums;
+    const { fetching } = this.props.albums;
 
     return (
       <>
@@ -44,32 +42,24 @@ class SearchBar extends React.Component {
           <div className="row">
             <div className="col-12">
               <div className={styles.search}>
-                {/* <form name="loginform" id="loginform" onSubmit={(event) => this.handleSearch(event)}> */}
-                {/* using div here so elements are all on one line */}
-                <label htmlFor="artist">
-                  Search for your fav artist: &nbsp;
-                  <input
-                    type="text"
-                    name="artist"
-                    id="artist"
-                    className="input"
-                    value={this.state.artist}
-                    size="20"
-                    onChange={(event) => this.handleChange(event)}
-                    onKeyDown={(event) => this.handleKeyDown(event)}
-                    disabled={fetching ? true : false}
-                  />
-                </label>
-                &nbsp;
-                {/* <Link href={`/album/${this.state.artist}`}> */}
-                <a href={`/album/${this.state.artist}`}>
-                  <Button color="primary" disabled={!this.state.artist}>
-                    {fetching ? "Searching..." : "Search"}
-                  </Button>
-                </a>
-                {/* </Link> */}
-                {/* <input type="submit" name="wp-submit" id="wp-submit" className="" value={fetching ? "Searching..." : "Search"} /> */}
-                {/* </form> */}
+                <form name="searchform" id="searchform" onSubmit={(event) => this.handleSearch(event)}>
+                  {/* using div here so elements are all on one line */}
+                  <label htmlFor="artist">
+                    Search for your fav artist: &nbsp;
+                    <input
+                      type="text"
+                      name="artist"
+                      id="artist"
+                      className="input"
+                      value={this.state.artist}
+                      size="20"
+                      onChange={(event) => this.handleChange(event)}
+                      disabled={fetching ? true : false}
+                    />
+                  </label>
+                  &nbsp;
+                  <input type="submit" name="search" id="search" value={fetching ? "Searching..." : "Search"} disabled={!this.state.artist} />
+                </form>
               </div>
             </div>
           </div>
